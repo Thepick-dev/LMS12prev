@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>LMS12 — Minimal Striking</title>
+
+<!-- Bebas Neue-like display font for title -->
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#ffffff;
+  --black:#000000;
+  --muted:#777777;
+  --neon-a: #00ffe1; /* cyan */
+  --neon-b: #FFD166; /* gold */
+  --neon-c: #8cff66; /* lime */
+  --btn-size: min(300px, 40vw);
+  --btn-radius: 18px;
+}
+
+/* Reset */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  background:var(--bg);
+  color:var(--black);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  display:flex;
+  flex-direction:column;
+  min-height:100vh;
+}
+
+/* Top nav */
+header{
+  width:100%;
+  padding:16px 28px;
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+}
+.top-nav{display:flex;gap:20px}
+.top-nav a{
+  font-weight:700;
+  font-size:14px;
+  color:var(--black);
+  text-decoration:none;
+  letter-spacing:0.02em;
+  opacity:0.95;
+}
+.top-nav a:hover{ color:var(--neon-a); }
+
+/* Center content */
+main{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:28px 18px;
+  gap:22px;
+}
+
+/* Title - heavier letter-spacing and stronger skew */
+.brand{
+  font-family: 'Bebas Neue', 'Anton', Impact, sans-serif;
+  font-size: clamp(44px, 14vw, 160px);
+  line-height:0.82;
+  letter-spacing:0.18em;     /* heavier letter-spacing */
+  color:var(--black);
+  text-align:center;
+  margin-top:6px;
+  margin-bottom:6px;
+  font-weight:700;
+  transform:skewX(-10deg);   /* more dramatic skew */
+  -webkit-transform:skewX(-10deg);
+  text-transform:uppercase;
+}
+
+/* Accent dots */
+.accents{ display:flex; gap:10px; align-items:center; justify-content:center; }
+.accent-blob{
+  width:12px; height:12px; border-radius:50%;
+  box-shadow:0 6px 18px rgba(0,0,0,0.06);
+}
+.accent-a{ background:var(--neon-a); }
+.accent-b{ background:var(--neon-b); }
+
+/* Buttons grid */
+.btn-grid{
+  display:flex;
+  gap:20px;
+  align-items:center;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin-top:6px;
+}
+
+/* Clean, minimalist square buttons (thinner look: no heavy shadow) */
+.square-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  background:var(--black);
+  color:#fff;
+  text-decoration:none;
+  font-weight:900;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  border-radius:var(--btn-radius);
+  width:var(--btn-size);
+  aspect-ratio:1/1;
+  transition: transform .14s cubic-bezier(.2,.9,.2,1), box-shadow .14s ease, background .14s ease;
+  position:relative;
+  overflow:visible;
+  font-size: clamp(20px, 7.6vw, 56px); /* very large text inside */
+  line-height:1;
+  padding:10px;
+  user-select: none;
+  border: 1px solid rgba(255,255,255,0.04); /* subtle edge */
+  /* remove heavy shadow for cleaner look */
+  box-shadow: none;
+}
+
+/* inner text block */
+.square-btn span{ display:block; transform:translateY(-2px); }
+
+/* Neon outline pseudo-element (hidden by default) - will be visible when pressed */
+.square-btn::after{
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: calc(var(--btn-radius) + 8px);
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.98);
+  transition: opacity .14s ease, transform .14s ease;
+}
+
+/* pressed/active state adds outline and subtle raise */
+.square-btn.pressed{
+  transform: translateY(-8px) scale(1.02);
+}
+
+/* neon color variants (outline appears on pressed state) */
+.square-btn.neon-a.pressed::after{
+  box-shadow: 0 0 38px 10px rgba(0,255,225,0.08), inset 0 0 18px rgba(0,255,225,0.06);
+  outline: 1px solid rgba(0,255,225,0.12);
+  opacity:1;
+  transform: scale(1.03);
+}
+.square-btn.neon-b.pressed::after{
+  box-shadow: 0 0 38px 10px rgba(255,209,102,0.08), inset 0 0 18px rgba(255,209,102,0.06);
+  outline: 1px solid rgba(255,209,102,0.12);
+  opacity:1;
+  transform: scale(1.03);
+}
+.square-btn.neon-c.pressed::after{
+  box-shadow: 0 0 38px 10px rgba(140,255,102,0.08), inset 0 0 18px rgba(140,255,102,0.06);
+  outline: 1px solid rgba(140,255,102,0.12);
+  opacity:1;
+  transform: scale(1.03);
+}
+
+/* subtle active press for touch end */
+.square-btn:active{ transform: translateY(-4px) scale(0.997); }
+
+/* Bottom nav */
+footer{
+  width:100%;
+  padding:14px 18px;
+  border-top:1px solid rgba(0,0,0,0.04);
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  align-items:center;
+}
+footer a{ font-weight:700; color:var(--muted); text-decoration:none; font-size:13px; }
+footer a:hover{ color:var(--neon-b); }
+
+/* Modal (rules) */
+.modal-backdrop{
+  position:fixed; inset:0; background:rgba(0,0,0,0.5); display:none; align-items:center; justify-content:center; z-index:2000;
+}
+.modal{
+  background:#fff; color:#000; padding:28px; border-radius:12px; max-width:720px; width:92%;
+  box-shadow:0 20px 60px rgba(0,0,0,0.18);
+  transform:translateY(12px); transition:transform .18s ease, opacity .18s ease;
+}
+.modal h3{ font-family: 'Bebas Neue', sans-serif; font-size:22px; margin-bottom:12px; letter-spacing:0.08em; }
+.modal p{ font-size:15px; color:#222; line-height:1.6; margin-bottom:10px; }
+.modal .close{
+  display:inline-block; margin-top:12px; padding:10px 14px; border-radius:8px; background:#000; color:#fff; text-decoration:none; font-weight:700;
+}
+
+/* Responsive tweaks */
+@media (max-width:720px){
+  header{ padding:12px 16px }
+  footer{ padding:12px 16px }
+  .btn-grid{ gap:14px }
+  :root{ --btn-size: min(320px, 56vw) }
+  .brand{ font-size: clamp(36px, 20vw, 88px); letter-spacing:0.14em; }
+  .modal{ padding:20px }
+}
+</style>
+</head>
+<body>
+
+  <!-- top nav -->
+  <header>
+    <nav class="top-nav" aria-label="Top navigation">
+      <a href="#predict">Predict</a>
+      <a href="#standings">Standings</a>
+      <a href="#rules" id="rules-link">Rules</a>
+      <a href="#updates">Updates</a>
+    </nav>
+  </header>
+
+  <!-- main content -->
+  <main>
+    <div class="brand" aria-hidden="false">LMS12</div>
+
+    <div class="accents" aria-hidden="true">
+      <div class="accent-blob accent-a" title="accent"></div>
+      <div class="accent-blob accent-b" title="accent"></div>
+    </div>
+
+    <nav class="btn-grid" role="navigation" aria-label="Primary actions">
+      <a id="predict" class="square-btn neon-a" href="#predict" aria-label="Predict"><span>PREDICT</span></a>
+      <a id="standings" class="square-btn neon-b" href="#standings" aria-label="Standings"><span>STANDINGS</span></a>
+      <a id="updates" class="square-btn neon-c" href="#updates" aria-label="Updates"><span>UPDATES</span></a>
+      <a id="rules" class="square-btn neon-b" href="#rules" aria-label="Rules"><span>RULES</span></a>
+    </nav>
+  </main>
+
+  <!-- bottom nav -->
+  <footer aria-label="Footer navigation">
+    <a href="#predict">Predict</a>
+    <a href="#standings">Standings</a>
+    <a href="#rules" id="rules-link-bottom">Rules</a>
+    <a href="#updates">Updates</a>
+  </footer>
+
+  <!-- Rules modal -->
+  <div class="modal-backdrop" id="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal" role="document">
+      <h3>LMS12 — Rules (Quick)</h3>
+      <p><strong>Picks:</strong> Each week pick one Premier League team to win. You may pick exactly once each team during the season except two pre-selected teams you may pick twice.</p>
+      <p><strong>Player:</strong> Pick a player each week — goals = +3, assists = +2.</p>
+      <p><strong>Scoring:</strong> Win vs Q1 = 6 • Win vs Q2 = 5 • Win vs Q3 = 4 • Win vs Q4 = 3. Draw values scale similarly.</p>
+      <p><strong>Leaderboard:</strong> Totals updated weekly. The player with most points wins.</p>
+      <a href="#" class="close" id="close-modal">Close</a>
+    </div>
+  </div>
+
+<script>
+/* Press/touch neon outline behavior */
+(function(){
+  const buttons = document.querySelectorAll('.square-btn');
+
+  function addPressed(el){
+    el.classList.add('pressed');
+  }
+  function removePressed(el){
+    el.classList.remove('pressed');
+  }
+
+  buttons.forEach(btn=>{
+    // mouse
+    btn.addEventListener('mousedown', ()=> addPressed(btn));
+    document.addEventListener('mouseup', ()=> buttons.forEach(removePressed));
+
+    // touch
+    btn.addEventListener('touchstart', ()=> addPressed(btn), {passive:true});
+    btn.addEventListener('touchend', ()=> removePressed(btn));
+
+    // keyboard
+    btn.addEventListener('keydown', (e)=>{
+      if(e.key === ' ' || e.key === 'Enter'){ addPressed(btn); }
+    });
+    btn.addEventListener('keyup', (e)=>{
+      if(e.key === ' ' || e.key === 'Enter'){ removePressed(btn); }
+    });
+  });
+})();
+
+/* Modal behavior */
+(function(){
+  const modal = document.getElementById('modal');
+  const openLinks = document.querySelectorAll('#rules-link, #rules-link-bottom, a[href="#rules"]');
+  const closeBtn = document.getElementById('close-modal');
+
+  function openModal(e){
+    if(e) e.preventDefault();
+    modal.style.display = 'flex';
+    modal.setAttribute('aria-hidden','false');
+    closeBtn.focus();
+  }
+  function closeModal(e){
+    if(e) e.preventDefault();
+    modal.style.display = 'none';
+    modal.setAttribute('aria-hidden','true');
+  }
+
+  openLinks.forEach(link=> link.addEventListener('click', openModal));
+  closeBtn.addEventListener('click', closeModal);
+  // close on backdrop click
+  modal.addEventListener('click', function(e){
+    if(e.target === modal) closeModal(e);
+  });
+  // close on escape
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') closeModal(e);
+  });
+})();
+</script>
+
+</body>
+</html>
