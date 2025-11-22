@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LMS XII — Standings</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;font-family:'Bebas Neue',sans-serif;background:#fff;color:#000;text-align:center;}
+  .topnav{display:flex;justify-content:center;gap:25px;padding:18px 0;border-bottom:2px solid #000;}
+  .topnav a{color:#000;text-decoration:none;font-weight:700;transition: color 0.2s, text-shadow 0.2s;}
+  .topnav a.active{color:#00f2ff;text-shadow:0 0 8px #00f2ff;}
+  .container{max-width:900px;margin:40px auto;padding:0 16px}
+  h1{font-size:56px;margin-bottom:18px}
+  table{width:100%;border-collapse:collapse;margin-top:18px;font-family:system-ui,Arial;color:#111}
+  th,td{padding:14px 10px;border-bottom:1px solid rgba(0,0,0,0.06);text-align:left}
+  th{font-weight:800;background:#fafafa}
+  tr.top{background:linear-gradient(90deg,#fffbe6,#fff);box-shadow:0 6px 24px rgba(0,0,0,0.06)}
+  .rank{width:48px;font-weight:900}
+  .points{width:110px;text-align:right;font-weight:900}
+  .note{margin-top:14px;color:#666;font-size:14px}
+  .bottomnav{margin-top:40px;padding:25px 0;border-top:2px solid #000;text-align:center}
+  .bottomnav a{color:#000;text-decoration:none;font-weight:700;transition: color 0.2s, text-shadow 0.2s;}
+  .bottomnav a.active{color:#00f2ff;text-shadow:0 0 8px #00f2ff;}
+</style>
+</head>
+<body>
+  <div class="topnav">
+    <a href="index.html">Predict</a>
+    <a href="standings.html" class="active">Standings</a>
+    <a href="updates.html">Updates</a>
+    <a href="rules.html">Rules</a>
+  </div>
+
+  <div class="container">
+    <h1>Standings</h1>
+    <table aria-describedby="leaderboard">
+      <thead>
+        <tr><th class="rank">#</th><th>Player</th><th>Teams Left</th><th class="points">Points</th></tr>
+      </thead>
+      <tbody id="leaderboard">
+        <tr class="top"><td class="rank">1</td><td>Kit Hutcheson</td><td>3</td><td class="points">142</td></tr>
+        <tr><td class="rank">2</td><td>Billy</td><td>5</td><td class="points">136</td></tr>
+        <tr><td class="rank">3</td><td>Locky</td><td>4</td><td class="points">130</td></tr>
+        <tr><td class="rank">4</td><td>Crosbo</td><td>6</td><td class="points">118</td></tr>
+      </tbody>
+    </table>
+
+    <div class="note">This leaderboard is a placeholder. We'll wire it to Google Sheets so it updates automatically.</div>
+  </div>
+
+  <div class="bottomnav">
+    <a href="picks.html">Predict</a> |
+    <a href="standings.html" class="active">Standings</a> |
+    <a href="updates.html">Updates</a> |
+    <a href="rules.html">Rules</a>
+  </div>
+</body>
+</html>
